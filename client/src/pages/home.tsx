@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
+import { GitHubInfo } from "@/components/GitHubInfo";
 
 export default function Home() {
   return (
@@ -29,6 +30,11 @@ export default function Home() {
           >
             Get Started
           </Button>
+          
+          {/* GitHub Repository Info */}
+          <div className="mt-12 w-full max-w-md">
+            <GitHubInfo username="silentsignal" repo="discordbot" />
+          </div>
         </div>
         
         {/* Swoosh Attribution */}

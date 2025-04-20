@@ -2,9 +2,6 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
-// Pass GitHub token to frontend
-process.env.VITE_GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
