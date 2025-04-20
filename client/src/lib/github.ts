@@ -1,50 +1,54 @@
 // GitHub API integration
-import { apiRequest } from "./queryClient";
+import { getQueryFn } from "./queryClient";
 
-/**
- * Fetches repository information from GitHub through our backend proxy
- * @param username GitHub username
- * @param repo Repository name
- * @returns Repository data
- */
-export async function fetchRepository(username: string, repo: string) {
-  return apiRequest(`/api/github/${username}/${repo}`, {
-    method: "GET"
-  });
+export interface RepositoryData {
+  stargazers_count: number;
+  forks_count: number;
+  open_issues_count: number;
+  description: string;
+  homepage: string | null;
+  license: { name: string } | null;
+  language: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Contributor {
+  id: number;
+  login: string;
+  avatar_url: string;
+  html_url: string;
+  contributions: number;
 }
 
 /**
- * Fetches repository stats from GitHub
- * @param username GitHub username
- * @param repo Repository name 
+ * Describes the Silent Signal Discord bot features
+ * Based on repository information
  */
-export async function fetchRepositoryStats(username: string, repo: string) {
-  const [repoData, contributors] = await Promise.all([
-    fetchRepository(username, repo),
-    fetchContributors(username, repo)
-  ]);
-  
+export interface BotFeatures {
+  description: string;
+  features: string[];
+  language: string;
+  license: string;
+}
+
+/**
+ * Fetches information about the SilentSignal Discord bot
+ * @returns Bot features information
+ */
+export function getSilentSignalInfo(): BotFeatures {
   return {
-    stars: repoData.stargazers_count,
-    forks: repoData.forks_count,
-    issues: repoData.open_issues_count,
-    contributorCount: contributors.length,
-    description: repoData.description,
-    homepage: repoData.homepage,
-    license: repoData.license?.name || 'N/A',
-    language: repoData.language,
-    created_at: repoData.created_at,
-    updated_at: repoData.updated_at
+    description: "Discord messaging web application that allows users to send direct messages to Discord users via a bot token.",
+    features: [
+      "Authentication with Discord bot token",
+      "Single DM functionality to specific users",
+      "Bulk messaging to multiple users",
+      "Server member selection for easier messaging",
+      "Auto-detection of servers the bot is in",
+      "Message status tracking and history",
+      "Rate limiting controls with configurable delays"
+    ],
+    language: "TypeScript",
+    license: "MIT"
   };
-}
-
-/**
- * Fetches contributors for a repository
- * @param username GitHub username
- * @param repo Repository name
- */
-async function fetchContributors(username: string, repo: string) {
-  return apiRequest(`/api/github/${username}/${repo}/contributors`, {
-    method: "GET"
-  });
 }

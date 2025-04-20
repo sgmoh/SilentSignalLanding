@@ -9,12 +9,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { username, repo } = req.params;
       
-      const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-          Accept: 'application/vnd.github.v3+json',
-        }
-      });
+      // GitHub API requires token to be sent as 'token <TOKEN>' (for personal access tokens)
+      const headers: Record<string, string> = {
+        'Accept': 'application/vnd.github.v3+json',
+      };
+      
+      if (process.env.GITHUB_TOKEN) {
+        headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
+      }
+      
+      const response = await fetch(`https://api.github.com/repos/${username}/${repo}`, { headers });
       
       if (!response.ok) {
         throw new Error(`GitHub API request failed: ${response.status}`);
@@ -33,12 +37,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { username, repo } = req.params;
       
-      const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contributors`, {
-        headers: {
-          Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-          Accept: 'application/vnd.github.v3+json',
-        }
-      });
+      // GitHub API requires token to be sent as 'token <TOKEN>' (for personal access tokens)
+      const headers: Record<string, string> = {
+        'Accept': 'application/vnd.github.v3+json',
+      };
+      
+      if (process.env.GITHUB_TOKEN) {
+        headers['Authorization'] = `token ${process.env.GITHUB_TOKEN}`;
+      }
+      
+      const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contributors`, { headers });
       
       if (!response.ok) {
         throw new Error(`GitHub API request failed: ${response.status}`);
