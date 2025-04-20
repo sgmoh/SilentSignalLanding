@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Logo from "@/components/Logo";
 import { GitHubInfo } from "@/components/GitHubInfo";
 import { getSilentSignalInfo } from "@/lib/github";
+import { Link } from "wouter";
 
 export default function Home() {
   const botInfo = getSilentSignalInfo();
@@ -49,11 +50,13 @@ export default function Home() {
           </div>
           
           {/* Call to Action Button */}
-          <Button 
-            className="mt-4 px-8 py-4 bg-[#E92019] hover:bg-red-700 text-white font-semibold rounded-lg text-lg transition-all"
-          >
-            Get Started
-          </Button>
+          <Link to="/demo">
+            <Button 
+              className="mt-4 px-8 py-4 bg-[#E92019] hover:bg-red-700 text-white font-semibold rounded-lg text-lg transition-all"
+            >
+              Get Started
+            </Button>
+          </Link>
           
           {/* GitHub Repository Info */}
           <div className="mt-12 w-full max-w-md">
