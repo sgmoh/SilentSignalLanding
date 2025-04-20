@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-size: 30px 30px;
+    background-image: linear-gradient(to right, #F3F4F6 1px, transparent 1px),
+                      linear-gradient(to bottom, #F3F4F6 1px, transparent 1px);
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  .logo-container {
+    animation: float 6s ease-in-out infinite;
+  }
+}
