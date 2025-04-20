@@ -20,7 +20,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedToken = sessionStorage.getItem("botToken");
     if (savedToken) {
-      authenticateBot(savedToken);
+      // Just set the values directly without validation to avoid infinite loop
+      setToken(savedToken);
+      setIsAuthenticated(true);
     }
   }, []);
 
@@ -37,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         toast({
           title: "Success",
           description: "Bot connected successfully!",
-          variant: "success",
+          variant: "default",
         });
         return true;
       } else {

@@ -3,16 +3,20 @@ import Logo from "@/components/Logo";
 import { GitHubInfo } from "@/components/GitHubInfo";
 import { getSilentSignalInfo } from "@/lib/github";
 import { Link } from "wouter";
+import { Header } from "@/components/layout/Header";
 
 export default function Home() {
   const botInfo = getSilentSignalInfo();
   
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center overflow-x-hidden">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       {/* Grid Background */}
       <div className="fixed inset-0 w-full h-full bg-white -z-10"></div>
       
-      <main className="container px-6 py-12 mx-auto max-w-5xl flex flex-col items-center justify-center text-center relative">
+      {/* Header */}
+      <Header />
+      
+      <main className="container px-6 py-12 mx-auto max-w-5xl flex flex-col items-center justify-center text-center relative flex-grow">
         {/* Hero Section */}
         <div className="w-full flex flex-col items-center justify-center py-12 md:py-20">
           {/* Logo Animation Container */}
